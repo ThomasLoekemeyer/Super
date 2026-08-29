@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f7f5;
+  --foreground: #1c1c1a;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Evita zoom automático de iOS al enfocar inputs (< 16px) */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
