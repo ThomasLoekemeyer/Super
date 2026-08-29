@@ -17,7 +17,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files (la anon key es pública por diseño, pero mantenemos el patrón estándar)
+# env files: las credenciales de Supabase se configuran localmente
+.env
 .env*.local
 
 # typescript

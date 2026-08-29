@@ -5,9 +5,21 @@ registrar consumos en lenguaje natural y saber automáticamente qué comprar.
 
 **Stack:** Next.js 15 · TypeScript · Supabase (PostgreSQL) · Tailwind CSS 4 · Vitest
 
-**Proyecto Supabase:** `Super - Inventario Hogar` (`lavqdoccyzktzqcggfis`, región `sa-east-1`).
-Las migrations y el seed con el inventario real **ya están aplicados**: al correr
-la app por primera vez, el dashboard muestra la lista de compra actual.
+## Conectar tu Supabase (una sola vez)
+
+La app se conecta al proyecto de Supabase que vos elijas (cualquier cuenta,
+sirve el free tier):
+
+1. Creá un proyecto en [supabase.com](https://supabase.com/dashboard).
+2. En el **SQL Editor** del proyecto, pegá y ejecutá **`supabase/setup.sql`**
+   (un solo archivo: crea el schema completo y carga el inventario real inicial).
+3. Verificá pegando `supabase/tests/verify_replenishment.sql`: debe devolver
+   `ok = true` con los 19 productos de la lista inicial.
+4. Copiá `.env.example` a `.env.local` y completá con la **Project URL** y la
+   **publishable key** de tu proyecto (Project Settings → API Keys).
+
+Alternativa con CLI: `supabase link --project-ref TU_REF && supabase db push`
+(usa las migrations de `supabase/migrations/`).
 
 ## Arranque
 
@@ -16,10 +28,6 @@ npm install
 npm run dev      # http://localhost:3000
 npm test         # 24 tests: parser + motor de reposición contra el seed real
 ```
-
-Las credenciales públicas del cliente vienen en `.env` (la publishable key está
-diseñada para viajar en el bundle; la seguridad se define en RLS). Overrides en
-`.env.local`.
 
 ## Pantallas
 
@@ -88,8 +96,9 @@ que exista (deep links, carga asistida, etc.).
 ## PWA / iPhone
 
 Manifest + service worker + íconos incluidos. En Safari: **Compartir →
-Agregar a inicio**. Deploy sugerido: Vercel (importar el repo; las variables ya
-están en `.env`).
+Agregar a inicio**. Deploy sugerido: Vercel (importar el repo y cargar
+`NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` como variables
+de entorno del proyecto).
 
 ## Seguridad (decisión consciente)
 
